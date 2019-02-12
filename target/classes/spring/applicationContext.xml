@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"               
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:util="http://www.springframework.org/schema/util" 
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xsi:schemaLocation="
+  http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+  http://www.springframework.org/schema/util
+  http://www.springframework.org/schema/util/spring-util-4.2.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context-4.2.xsd
+  http://www.springframework.org/schema/mvc
+  http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+  
+ <!-- 构建一个Spring容器，特点：xml或者注解 驱动java代码  
+	Spring容器    Bean组件容器
+	过程：
+		通过class实例化一个对象（调用构造器 构造器参数可以由 constructor-arg 指定，
+		没有将调用无参构造器），根据property setter注入其他的bean或者基本数据类型，集合等
+-->
+ <!-- 开启注解收集  -->
+<context:component-scan base-package="controller,service,dao"/>
+
+	 <!-- 视图解析器 -->  
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		 <property name="prefix" value="/" />      
+		 <property name="suffix" value=".jsp" />      
+	</bean>
+</beans>

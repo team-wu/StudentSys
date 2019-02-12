@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+ 
+<!-- filter权限控制 ,filter是按照配置的先后顺序加载的，没有优先级高低-->
+<filter>
+	<filter-name>authFilter</filter-name>
+	<filter-class>filter.AuthenticationFilter</filter-class>
+	<init-param>
+		<param-name>allowUri</param-name>
+		<param-value>/admin/*</param-value>
+	</init-param>	
+</filter>
+<filter-mapping>
+	<filter-name>authFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+ 
+ 
+ 
+ <!-- spring mvc 核心路由器  -->
+ <!-- 	
+ 	底层 servlet路由 是一个url路由到一个servlet 
+  	把路由托付给spring mvc完成，首先需要配置一个核心的路由器（core servlet）
+    路径匹配过程中若是匹配到controller，就从spring容器中获取这个Bean，再匹配其
+    处理方法，再根据其方法参数配置做数据绑定，再通过反射invoke方法
+  -->
+ <servlet>
+ 	<servlet-name>springCoreFilter</servlet-name>
+ 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ 	<!-- spring mvc 依赖一个 spring 容器，此处指定配置文件路径 -->
+ 	<init-param>
+ 		<param-name>contextConfigLocation</param-name>
+    	<param-value>classpath:spring/applicationContext.xml</param-value>
+ 	</init-param>
+ 	<load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet-mapping>
+ 	<servlet-name>springCoreFilter</servlet-name>
+ 	<url-pattern>*.do</url-pattern>
+ </servlet-mapping>
+
+</web-app>
